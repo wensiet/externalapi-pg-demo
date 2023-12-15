@@ -14,7 +14,7 @@ class Input(BaseModel):
     end: datetime.datetime
 
 
-db_host = os.environ["PG_HOST"]
+db_host = "83.147.245.92"
 db_port = os.environ["PG_PORT"]
 db_name = os.environ["PG_DB"]
 db_user = os.environ["PG_USER"]
