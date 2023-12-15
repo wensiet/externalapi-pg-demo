@@ -46,7 +46,7 @@ def data(table_name: str, input_form: Input = Depends()):
     cursor = connection.cursor()
 
     # Assuming 'data' table has the same structure as the Response model
-    query = f"SELECT datetime, org_name, src_ip, src_port, dst_ip, dst_port, packets_count, bytes_count FROM {table_name} WHERE org_name = %s AND datetime >= %s AND datetime <= %s"
+    query = f"SELECT timestamp, org_name, src_ip, src_port, dst_ip, dst_port, packets_count, bytes_count FROM {table_name} WHERE org_name = %s AND timestamp >= %s AND timestamp <= %s"
 
     # Execute the query with parameters
     cursor.execute(query, (input_form.org_name, input_form.start, input_form.end))
