@@ -1,5 +1,6 @@
 import datetime
 import os
+from dotenv import load_dotenv
 
 import psycopg2
 from fastapi import FastAPI, Depends
@@ -12,13 +13,6 @@ class Input(BaseModel):
     org_name: str
     start: datetime.datetime
     end: datetime.datetime
-
-
-db_host = "83.147.245.92"
-db_port = os.environ["PG_PORT"]
-db_name = os.environ["PG_DB"]
-db_user = os.environ["PG_USER"]
-db_password = os.environ["PG_PASSWORD"]
 
 
 class Response(BaseModel):
@@ -34,6 +28,12 @@ class Response(BaseModel):
 
 @app.get("/api/v1/{table_name}")
 def data(table_name: str, input_form: Input = Depends()):
+    load_dotenv()
+    db_host = os.environ.get("PG_HOST")
+    db_port = os.environ.get("PG_PORT")
+    db_name = os.environ.get("PG_DB")
+    db_user = os.environ.get("PG_USER")
+    db_password = os.environ.get("PG_PASSWORD")
     connection = psycopg2.connect(
         host=db_host,
         port=db_port,
