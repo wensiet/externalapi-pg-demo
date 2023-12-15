@@ -11,6 +11,8 @@ services:
       - "${PG_PORT}:5432"
     networks:
       - fastapi_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   fastapi:
     build: .
@@ -29,3 +31,6 @@ services:
 
 networks:
   fastapi_network:
+
+volumes:
+  postgres_data:
