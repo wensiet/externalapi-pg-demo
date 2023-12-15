@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${PG_DB}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    ports:
+      - "${PG_PORT}:5432"
+    networks:
+      - fastapi_network
+
+  fastapi:
+    build: .
+    environment:
+      PG_HOST: postgres
+      PG_PORT: ${PG_PORT}
+      PG_DB: ${PG_DB}
+      PG_USER: ${PG_USER}
+      PG_PASSWORD: ${PG_PASSWORD}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    networks:
+      - fastapi_network
+
+networks:
+  fastapi_network:
